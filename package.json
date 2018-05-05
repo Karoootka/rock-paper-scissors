@@ -1,0 +1,43 @@
+{
+  "name": "rock-paper-scissors",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:html",
+    "test:html": "globstar nu-html-checker *.html",
+    "init-project": "npm install && npm-run-all init:*",
+    "init:dirs": "mkdirp sass css vendor images js",
+    "init:files": "touch README.md index.html sass/style.scss js/script.js",
+    "init:gitignore": "curl https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore -o .gitignore",
+    "build": "npm-run-all build:* test",
+    "build:clean": "rimraf css",
+    "build:sass": "node-sass --output-style compact -o css sass",
+    "build:autoprefixer": "autoprefixer-cli css/style.css",
+    "build-dev:sass": "node-sass --output-style expanded --source-map true -o css sass",
+    "watch": "npm-run-all build -p watch:*",
+    "watch:sassprefixer": "onchange -d 100 sass/* -- npm-run-all build:sass build:autoprefixer",
+    "watch:build": "npm run build && npm-run-all watch:*",
+    "watch:browsersync": "browser-sync start --server --files css/*.css *.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Karoootka/learning-git-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Karoootka/learning-git-2/issues"
+  },
+  "homepage": "https://github.com/Karoootka/learning-git-2#readme",
+  "devDependencies": {
+    "autoprefixer-cli": "^1.0.0",
+    "browser-sync": "^2.23.7",
+    "globstar": "^1.0.0",
+    "node-sass": "^4.8.3",
+    "nu-html-checker": "^0.1.0",
+    "onchange": "^3.3.0",
+    "rimraf": "^2.6.2"
+  }
+}
