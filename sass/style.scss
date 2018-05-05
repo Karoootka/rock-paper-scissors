@@ -1,0 +1,46 @@
+body {
+	padding: 10px;
+	text-align: center;
+  font-family: sans-serif;
+}
+
+button {
+  padding: 11px 0;
+	font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 4px;
+	transition: color .3s, background-color .3s;
+}
+
+.ng {
+  display: inline-block;
+  width: 150px;
+  margin-bottom: 30px;
+  background-color: #ff9000;
+	border: 2px solid #ff9000;
+
+  &:hover, &:active {
+  	color: #ff9000;
+  	background-color: #fff;
+  }
+}
+
+[class*="btn"] {
+  display: inline;
+  width: 200px;
+  margin: 0 20px;
+  background-color: #0a6f73;
+	border: 2px solid #0a6f73;
+
+  &:hover, &:active {
+  	color: #0a6f73;
+  	background-color: #fff;
+  }
+}
+
+#output {
+  color: red;
+  font-weight: bold;
+  font-size: 30px;
+}
