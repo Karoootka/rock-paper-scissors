@@ -2,17 +2,21 @@ body { padding: 10px; text-align: center; font-family: sans-serif; }
 
 button { padding: 11px 0; font-size: 16px; font-weight: 600; color: #fff; border-radius: 4px; transition: color .3s, background-color .3s; }
 
-.ng { display: inline-block; margin-bottom: 30px; background-color: #ff9000; border: 2px solid #ff9000; }
-
-.ng:hover, .ng:active { color: #ff9000; background-color: #fff; }
+.ng { display: inline-block; margin-bottom: 30px; }
 
 [class*="btn"] { display: inline; width: 200px; margin: 0 20px; background-color: #0a6f73; border: 2px solid #0a6f73; }
 
 [class*="btn"]:hover, [class*="btn"]:active { color: #0a6f73; background-color: #fff; }
 
-#newGame { height: 60px; width: 160px; }
-
 #output { color: red; font-weight: bold; font-size: 30px; }
+
+#newGame { height: 60px; width: 160px; background-color: #ff9000; border: 2px solid #ff9000; }
+
+#newGame:hover, #newGame:active { color: #ff9000; background-color: #fff; }
+
+#start { height: 50px; width: 120px; letter-spacing: 1.5px; background-color: #228B22; border: 2px solid #228B22; }
+
+#start:hover, #start:active { background-color: #1a661a; }
 
 .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); }
 

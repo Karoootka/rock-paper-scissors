@@ -16,13 +16,6 @@ button {
 .ng {
   display: inline-block;
   margin-bottom: 30px;
-  background-color: #ff9000;
-	border: 2px solid #ff9000;
-
-  &:hover, &:active {
-  	color: #ff9000;
-  	background-color: #fff;
-  }
 }
 
 [class*="btn"] {
@@ -38,15 +31,34 @@ button {
   }
 }
 
-#newGame {
-	height: 60px;
-	width: 160px;
-}
-
 #output {
   color: red;
   font-weight: bold;
   font-size: 30px;
+}
+
+#newGame {
+	height: 60px;
+	width: 160px;
+	background-color: #ff9000;
+	border: 2px solid #ff9000;
+
+	&:hover, &:active {
+		color: #ff9000;
+		background-color: #fff;
+	}
+}
+
+#start {
+	height: 50px;
+	width: 120px;
+	letter-spacing: 1.5px;
+	background-color: #228B22;
+	border: 2px solid #228B22;
+	&:hover, &:active {
+		// color: #228B22;
+		background-color: #1a661a;
+	}
 }
 
 

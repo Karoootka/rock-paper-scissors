@@ -6,6 +6,7 @@ var output = document.getElementById('output');
 var resultOutput = document.getElementById('result');
 
 var newGame = document.getElementById('newGame');
+var start = document.getElementById('start');
 var roundsInfo = document.getElementById('roundsInfo');
 
 var names = {
@@ -18,22 +19,41 @@ var params = {
   winsNumber: [0,0],
   rounds: undefined,
   canPlay: false,
-  progress: []
+  progress: [],
+  playerName: ''
 }
 
 // START NEW GAME
 
 newGame.addEventListener('click', function() {
+  document.querySelector('input[name="firstname"]').value = '';
+  document.querySelector('input[name="rounds"]').value = '';
+  showModal('#modal-new-game');
+});
+
+start.addEventListener('click', function(event) {
+  event.preventDefault();
   resultOutput.innerHTML = '';
   output.innerHTML = '';
   params.winsNumber = [0, 0];
-  params.rounds = parseInt(window.prompt('Enter number of rounds to win'));
+  params.rounds = document.querySelector('input[name="rounds"]').value;
+  params.playerName = document.querySelector('input[name="firstname"]').value;
   roundsInfo.innerHTML = 'Win ' + params.rounds + ' rounds to win the game';
   params.canPlay = true;
+  params.progress = [];
+  removeElementsByClass('clear');
+  document.querySelector('#modal-overlay').classList.remove('show');
 });
 
+function removeElementsByClass(className){
+    var elements = document.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+};
 
-// BUTTONS EVENTS
+
+// ROCK PAPER SCISSORS - BUTTONS EVENTS
 
 var buttons = document.querySelectorAll('.player-move');
 
@@ -56,7 +76,8 @@ function computerMove() {
 
 function playerMove(playerChoice) {
   if (!params.canPlay) {
-    output.innerHTML = 'Please press the new game button!'  + '<br><br>' + output.innerHTML
+    showModal('#modal-warning');
+    document.querySelector('#modal-warning .content p').innerHTML = 'Please press the NEW GAME button!';
     return;
   }
 
@@ -69,7 +90,7 @@ function playerMove(playerChoice) {
       winner = 'draw';
     }
     else if (playerChoice == 1 && computerChoice == 3 || playerChoice == 2 && computerChoice == 1 || playerChoice == 3 && computerChoice == 2) {
-      winner = 'player';
+      winner = params.playerName;
     }
     else {
       winner = 'computer';
@@ -79,22 +100,21 @@ function playerMove(playerChoice) {
   }
 };
 
-// SHOW RESULTS
+// SHOW ROUND RESULTS
 
 function resultInfo(winner, computerChoice, playerChoice) {
-
-  if (winner == 'player') {
-    output.innerHTML = 'YOU WON you played ' + names[playerChoice] + ', computer played ' + names[computerChoice];
+  if (winner == params.playerName) {
+    output.innerHTML = params.playerName + ' WON - ' + params.playerName + ' played ' + names[playerChoice] + ', computer played ' + names[computerChoice];
   }
   else if (winner = 'computer') {
-    output.innerHTML = 'YOU LOSE you played ' + names[playerChoice] + ', computer played ' + names[computerChoice];
+    output.innerHTML = params.playerName + ' LOST - ' + params.playerName + ' played ' + names[playerChoice] + ', computer played ' + names[computerChoice];
   }
 };
 
-// SHOW INFO ABOUT WINNER
+// AFTER ROUND
 
 function result(winner, computerChoice, playerChoice) {
-  if (winner == 'player') {
+  if (winner == params.playerName) {
     params.winsNumber[0] += 1;
   }
   else if (winner = 'computer') {
@@ -113,22 +133,25 @@ function result(winner, computerChoice, playerChoice) {
   });
 
   checkWinner();
-
-  resultOutput.innerHTML = 'Player ' + params.winsNumber[0] + ' - ' + params.winsNumber[1] + ' Computer';
+  resultOutput.innerHTML = params.playerName + ' ' + params.winsNumber[0] + ' - ' + params.winsNumber[1] + ' Computer';
 };
+
+
+// CHECK WINNER & PRINT INFO INTO MODAL TABLE
 
 function checkWinner() {
   if (params.winsNumber[0] == params.rounds || params.winsNumber[1] == params.rounds) {
     if (params.winsNumber[0] == params.rounds) {
-      document.querySelector('.modal .content p').innerHTML = 'YOU WON THE ENTIRE GAME !!!';
+      document.querySelector('#modal-show .content p').innerHTML = params.playerName + ' WON THE ENTIRE GAME !';
     }
     else if (params.winsNumber[1] == params.rounds) {
-      document.querySelector('.modal .content p').innerHTML = 'COMPUTER WON THE ENTIRE GAME !!!';
+      document.querySelector('#modal-show .content p').innerHTML = 'COMPUTER WON THE ENTIRE GAME !';
     }
 
     for (var i = 0; i < params.progress.length; i++) {
       var round = params.progress[i];
       var row = document.createElement('tr');
+      row.classList.add('clear');
       var strHtml = `<td> ${i+1} </td>
       <td> ${names[round.playerChoice]} </td>
       <td> ${names[round.computerChoice]} </td>
@@ -140,20 +163,20 @@ function checkWinner() {
       console.log(params.progress[i]);
     }
 
-    showModal();
+    showModal('#modal-show');
     params.canPlay = false;
   }
 };
 
-// MODAL
+// MODALS
 
 var modals = document.querySelectorAll('.modal');
 
-var showModal = function(){
+var showModal = function(idModal){
   for (var i = 0; i < modals.length; i++) {
     modals[i].classList.remove('show');
   };
-	document.querySelector('#modal-show').classList.add('show');
+	document.querySelector(idModal).classList.add('show');
 	document.querySelector('#modal-overlay').classList.add('show');
 };
 
