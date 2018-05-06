@@ -5,40 +5,44 @@
 var output = document.getElementById('output');
 var resultOutput = document.getElementById('result');
 
-var rock = document.getElementById('btn-rock');
-var paper = document.getElementById('btn-paper');
-var scissors = document.getElementById('btn-scissors');
-
-var winsNumber = [0, 0];
-
 var newGame = document.getElementById('newGame');
 var roundsInfo = document.getElementById('roundsInfo');
-var rounds;
-var canPlay = false;
 
+var names = {
+  1: 'ROCK',
+  2: 'PAPER',
+  3: 'SCISSORS'
+};
+
+var params = {
+  winsNumber: [0,0],
+  rounds: undefined,
+  canPlay: false,
+  progress: []
+}
 
 // START NEW GAME
 
 newGame.addEventListener('click', function() {
   resultOutput.innerHTML = '';
   output.innerHTML = '';
-  winsNumber = [0, 0];
-  rounds = parseInt(window.prompt('Enter number of rounds to win'));
-  roundsInfo.innerHTML = 'Win ' + rounds + ' rounds to win the game';
-  canPlay = true;
+  params.winsNumber = [0, 0];
+  params.rounds = parseInt(window.prompt('Enter number of rounds to win'));
+  roundsInfo.innerHTML = 'Win ' + params.rounds + ' rounds to win the game';
+  params.canPlay = true;
 });
+
 
 // BUTTONS EVENTS
 
-rock.addEventListener('click', function() {
-  playerMove(1);
-});
-paper.addEventListener('click', function() {
-  playerMove(2);
-});
-scissors.addEventListener('click', function() {
-  playerMove(3);
-});
+var buttons = document.querySelectorAll('.player-move');
+
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener('click', function(event) {
+    var move = parseInt(event.target.getAttribute('data-move'));
+    playerMove(move);
+  })
+};
 
 
 // COMPUTER RANDOM CHOICE
@@ -50,66 +54,125 @@ function computerMove() {
 
 // COMPARE CHOICES
 
-function playerMove(player) {
-  if (!canPlay) {
+function playerMove(playerChoice) {
+  if (!params.canPlay) {
     output.innerHTML = 'Please press the new game button!'  + '<br><br>' + output.innerHTML
     return;
   }
 
   else {
-
     var winner;
     var computerChoice = computerMove();
 
-    if (player == computerChoice) {
+    if (playerChoice == computerChoice) {
       output.innerHTML = 'DRAW';
+      winner = 'draw';
     }
-    else if (player == 1 && computerChoice == 3 || player == 2 && computerChoice == 1 || player == 3 && computerChoice == 2) {
-      winner = 'playerWon';
-      resultInfo(winner, computerChoice, player);
-      result(winner);
+    else if (playerChoice == 1 && computerChoice == 3 || playerChoice == 2 && computerChoice == 1 || playerChoice == 3 && computerChoice == 2) {
+      winner = 'player';
     }
     else {
-      winner = 'playerLoose';
-      resultInfo(winner, computerChoice, player);
-      result(winner);
+      winner = 'computer';
     }
+    resultInfo(winner, computerChoice, playerChoice);
+    result(winner, computerChoice, playerChoice);
   }
 };
 
 // SHOW RESULTS
 
-function resultInfo(winner, computerChoice, player) {
-  var names = {
-    1: 'ROCK',
-    2: 'PAPER',
-    3: 'SCISSORS'
-  };
+function resultInfo(winner, computerChoice, playerChoice) {
 
-  if (winner == 'playerWon') {
-    output.innerHTML = 'YOU WON you played ' + names[player] + ', computer played ' + names[computerChoice];
+  if (winner == 'player') {
+    output.innerHTML = 'YOU WON you played ' + names[playerChoice] + ', computer played ' + names[computerChoice];
   }
-  else if (winner = 'playerLoose') {
-    output.innerHTML = 'YOU LOOSE you played ' + names[player] + ', computer played ' + names[computerChoice];
+  else if (winner = 'computer') {
+    output.innerHTML = 'YOU LOSE you played ' + names[playerChoice] + ', computer played ' + names[computerChoice];
   }
 };
 
 // SHOW INFO ABOUT WINNER
 
-function result(winner) {
-  if (winner == 'playerWon') {
-    winsNumber[0] += 1;
+function result(winner, computerChoice, playerChoice) {
+  if (winner == 'player') {
+    params.winsNumber[0] += 1;
   }
-  else if (winner = 'playerLoose') {
-    winsNumber[1] += 1;
+  else if (winner = 'computer') {
+    params.winsNumber[1] += 1;
   }
-  if (winsNumber[0] == rounds) {
-    output.innerHTML = 'YOU WON THE ENTIRE GAME !!!'  + '<br><br>' + output.innerHTML;
-    canPlay = false;
-  }
-  else if (winsNumber[1] == rounds) {
-    output.innerHTML = 'COMPUTER WON THE ENTIRE GAME !!!'  + '<br><br>' + output.innerHTML;
-    canPlay = false;
-  }
-  resultOutput.innerHTML = 'Player ' + winsNumber[0] + ' - ' + winsNumber[1] + ' Computer';
+
+  var playerWins = params.winsNumber[0];
+  var computerWins = params.winsNumber[1];
+
+  params.progress.push({
+    playerChoice: playerChoice,
+    computerChoice: computerChoice,
+    winner: winner,
+    playerWins: playerWins,
+    computerWins: computerWins
+  });
+
+  checkWinner();
+
+  resultOutput.innerHTML = 'Player ' + params.winsNumber[0] + ' - ' + params.winsNumber[1] + ' Computer';
 };
+
+function checkWinner() {
+  if (params.winsNumber[0] == params.rounds || params.winsNumber[1] == params.rounds) {
+    if (params.winsNumber[0] == params.rounds) {
+      document.querySelector('.modal .content p').innerHTML = 'YOU WON THE ENTIRE GAME !!!';
+    }
+    else if (params.winsNumber[1] == params.rounds) {
+      document.querySelector('.modal .content p').innerHTML = 'COMPUTER WON THE ENTIRE GAME !!!';
+    }
+
+    for (var i = 0; i < params.progress.length; i++) {
+      var round = params.progress[i];
+      var row = document.createElement('tr');
+      var strHtml = `<td> ${i+1} </td>
+      <td> ${names[round.playerChoice]} </td>
+      <td> ${names[round.computerChoice]} </td>
+      <td> ${round.winner} </td>
+      <td> ${round.playerWins} - ${round.computerWins} </td>`
+
+      row.innerHTML = strHtml;
+      document.querySelector('table').appendChild(row);
+      console.log(params.progress[i]);
+    }
+
+    showModal();
+    params.canPlay = false;
+  }
+};
+
+// MODAL
+
+var modals = document.querySelectorAll('.modal');
+
+var showModal = function(){
+  for (var i = 0; i < modals.length; i++) {
+    modals[i].classList.remove('show');
+  };
+	document.querySelector('#modal-show').classList.add('show');
+	document.querySelector('#modal-overlay').classList.add('show');
+};
+
+
+var hideModal = function(event){
+	event.preventDefault();
+	document.querySelector('#modal-overlay').classList.remove('show');
+};
+
+var closeButtons = document.querySelectorAll('.modal .close');
+
+for (var i = 0; i < closeButtons.length; i++){
+	closeButtons[i].addEventListener('click', hideModal);
+}
+
+document.querySelector('#modal-overlay').addEventListener('click', hideModal);
+
+for (var i = 0; i < modals.length; i++) {
+  modals[i].addEventListener('click', function(event){
+    event.stopPropagation();
+  });
+}

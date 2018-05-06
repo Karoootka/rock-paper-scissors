@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <title>ROCK PAPER SCISSORS</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css"
 </head>
 
 
@@ -18,11 +18,11 @@
 
   <div id="roundsInfo"></div>
   <br>
-  <button class="btn" id="btn-rock">ROCK</button>
+  <button class="btn player-move" data-move="1">ROCK</button>
 
-  <button class="btn" id="btn-paper">PAPER</button>
+  <button class="btn player-move" data-move="2">PAPER</button>
 
-  <button class="btn" id="btn-scissors">SCISSORS</button>
+  <button class="btn player-move" data-move="3">SCISSORS</button>
   <br>
   <br>
   <div id="output"></div>
@@ -30,8 +30,29 @@
   <br>
   <div id="result"></div>
 
+
+  <div class="overlay" id="modal-overlay">
+
+  	<div class="modal" id="modal-show">
+  		<a href="#" class="close">x</a>
+  		<header>End of the game</header>
+  		<div class="content">
+  			<p></p>
+        <table>
+          <tr>
+            <th>Round number</th>
+            <th>Player move</th>
+            <th>Computer move</th>
+            <th>Round winner</th>
+            <th>Player - Computer</th>
+          </tr>
+        </table>
+  		</div>
+  	</div>
+  </div>
+
+
   <script src="js/script.js"></script>
-  
   </body>
 
 
