@@ -6,12 +6,13 @@
 
     <head>
       <meta charset="utf-8">
-      <title>ROCK PAPER SCISSORS</title>
-      <link rel="stylesheet" type="text/css" href="css/style.css"
+      <title>GAME - ROCK PAPER SCISSORS</title>
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
     </head>
 
 
-    <h1>ROCK / PAPER / SCISSORS - GAME</h1>
+    <h1>ROCK - PAPER - SCISSORS</h1>
 
     <div>
       <button class="ng" id="newGame">NEW GAME</button>
@@ -36,13 +37,17 @@
     		<div class="content">
     			<p></p>
           <table>
-            <tr>
-              <th>Round number</th>
-              <th>Player move</th>
-              <th>Computer move</th>
-              <th>Round winner</th>
-              <th>Player - Computer</th>
-            </tr>
+            <thead>
+              <tr>
+                <th>Round number</th>
+                <th>Player move</th>
+                <th>Computer move</th>
+                <th>Round winner</th>
+                <th>Player - Computer</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
           </table>
     		</div>
     	</div>
@@ -59,10 +64,10 @@
           <div class="content">
             <form>
               Enter your name:<br>
-              <input type="text" name="firstname"><br><br>
-              Enter number of rounds to win:<br><br>
-              <input type="number" name="rounds" min="1"><br><br>
-              <button class="ng" id="start">Start</button>
+              <input type="text" name="firstname" required><br><br>
+              Enter number of rounds to win:<br>
+              <input type="number" name="rounds" min="1" required><br><br>
+              <button class="ng" type="submit" id="start">START</button>
             </form>
           </div>
         </div>

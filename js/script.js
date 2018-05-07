@@ -31,8 +31,8 @@ newGame.addEventListener('click', function() {
   showModal('#modal-new-game');
 });
 
-start.addEventListener('click', function(event) {
-  event.preventDefault();
+start.parentElement.addEventListener('submit', function(event) {
+  // event.preventDefault();
   resultOutput.innerHTML = '';
   output.innerHTML = '';
   params.winsNumber = [0, 0];
@@ -133,7 +133,7 @@ function result(winner, computerChoice, playerChoice) {
   });
 
   checkWinner();
-  resultOutput.innerHTML = params.playerName + ' ' + params.winsNumber[0] + ' - ' + params.winsNumber[1] + ' Computer';
+  resultOutput.innerHTML = params.playerName + ' <span>' + params.winsNumber[0] + ' - ' + params.winsNumber[1] + '</span> Computer';
 };
 
 
@@ -159,7 +159,7 @@ function checkWinner() {
       <td> ${round.playerWins} - ${round.computerWins} </td>`
 
       row.innerHTML = strHtml;
-      document.querySelector('table').appendChild(row);
+      document.querySelector('tbody').appendChild(row);
       console.log(params.progress[i]);
     }
 
