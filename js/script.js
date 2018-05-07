@@ -32,7 +32,7 @@ newGame.addEventListener('click', function() {
 });
 
 start.parentElement.addEventListener('submit', function(event) {
-  // event.preventDefault();
+  event.preventDefault();
   resultOutput.innerHTML = '';
   output.innerHTML = '';
   params.winsNumber = [0, 0];
