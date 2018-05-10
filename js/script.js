@@ -86,7 +86,6 @@ function playerMove(playerChoice) {
     var computerChoice = computerMove();
 
     if (playerChoice == computerChoice) {
-      output.innerHTML = 'DRAW';
       winner = 'draw';
     }
     else if (playerChoice == 1 && computerChoice == 3 || playerChoice == 2 && computerChoice == 1 || playerChoice == 3 && computerChoice == 2) {
@@ -97,16 +96,19 @@ function playerMove(playerChoice) {
     }
     resultInfo(winner, computerChoice, playerChoice);
     result(winner, computerChoice, playerChoice);
-  }
+  };
 };
 
 // SHOW ROUND RESULTS
 
 function resultInfo(winner, computerChoice, playerChoice) {
-  if (winner == params.playerName) {
+  if (winner == 'draw') {
+    output.innerHTML = 'DRAW';
+  }
+  else if (winner == params.playerName) {
     output.innerHTML = params.playerName + ' WON - ' + params.playerName + ' played ' + names[playerChoice] + ', computer played ' + names[computerChoice];
   }
-  else if (winner = 'computer') {
+  else if (winner == 'computer') {
     output.innerHTML = params.playerName + ' LOST - ' + params.playerName + ' played ' + names[playerChoice] + ', computer played ' + names[computerChoice];
   }
 };
@@ -117,7 +119,7 @@ function result(winner, computerChoice, playerChoice) {
   if (winner == params.playerName) {
     params.winsNumber[0] += 1;
   }
-  else if (winner = 'computer') {
+  else if (winner == 'computer') {
     params.winsNumber[1] += 1;
   }
 
@@ -142,10 +144,10 @@ function result(winner, computerChoice, playerChoice) {
 function checkWinner() {
   if (params.winsNumber[0] == params.rounds || params.winsNumber[1] == params.rounds) {
     if (params.winsNumber[0] == params.rounds) {
-      document.querySelector('#modal-show .content p').innerHTML = params.playerName + ' WON THE ENTIRE GAME !';
+      document.querySelector('#modal-show .content p').innerHTML = `<span> ${params.playerName} ${params.winsNumber[0]} - ${params.winsNumber[1]} Computer </span> <br><br> ${params.playerName} WON THE ENTIRE GAME !`;
     }
     else if (params.winsNumber[1] == params.rounds) {
-      document.querySelector('#modal-show .content p').innerHTML = 'COMPUTER WON THE ENTIRE GAME !';
+      document.querySelector('#modal-show .content p').innerHTML = `<span> ${params.playerName} ${params.winsNumber[0]} - ${params.winsNumber[1]} </span> Computer </span> <br><br> COMPUTER WON THE ENTIRE GAME !`;
     }
 
     for (var i = 0; i < params.progress.length; i++) {
