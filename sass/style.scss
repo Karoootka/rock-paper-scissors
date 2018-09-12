@@ -2,50 +2,81 @@ body {
 	padding: 0;
 	margin: 0;
 	text-align: center;
-	background-image: url('https://images.pexels.com/photos/305821/pexels-photo-305821.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
 	background-size: cover;
 	background-repeat: no-repeat;
 	font-family: 'Roboto', sans-serif;
 }
 
 h1 {
-	background-color: rgba(38, 90, 52, 0.8);
 	padding: 15px;
-	margin-top: 0;
-	margin-bottom: 30px;
-	letter-spacing: 3px;
-	font-weight: 600;
-	color: #E9E8E6;
+	margin: 0;
+	color: #414141;
 }
 
 button {
-  padding: 11px 0;
-	font-size: 20px;
-  font-weight: 600;
-  color: #fff;
-  border-radius: 4px;
-	transition: .3s;
-	font-family: 'Roboto', sans-serif;
-	box-shadow: 0px 1px 3px #666666;
 	cursor: pointer;
 }
 
-.ng {
-  display: inline-block;
-  margin-bottom: 30px;
+.new-game {
+  padding: 10px 20px;
+	margin-bottom: 30px;
+  font-size: 24px;
+  text-align: center;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+	&:hover {
+		background-color: #3e8e41;
+	}
+	&:active {
+	  background-color: #3e8e41;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);
+	}
 }
 
-[class*="btn"] {
-  display: inline;
-  width: 200px;
-  margin: 0 20px;
-  background-color: #265A34;
-	border: 2px solid #265A34;
+#start {
+	font-size: 18px;
+	height: 40px;
+	width: 100px;
+}
 
-  &:hover, &:active {
-  	color: #0a6f73;
-  	background-color: #E9E8E6;
-  }
+[class*="player-move"] {
+  width: 15%;
+	height: 40vh;
+	margin: 0 10px;
+	border: none;
+}
+
+button[data-move="1"] {
+	background: url('../images/rock.png');
+}
+
+button[data-move="2"] {
+	background: url('../images/paper.png');
+}
+
+button[data-move="3"] {
+	background: url('../images/scissors.png');
+}
+
+button[data-move] {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 80% auto;
+	transition: .5s;
+	&:focus {
+		outline: none;
+	}
+	&:hover {
+		transform: translateY(5px);
+	}
+	&:active {
+		transform: scale(0.8);
+	}
 }
 
 #roundsInfo, #result {
@@ -53,47 +84,34 @@ button {
 	color: #3f4042;
 }
 
-#result span {
-	background-color: #ff9000;
-	padding: 3px 15px;
-	border-radius: 4px;
-	color: black;
+#result {
+	margin: 0 auto 10px auto;
+	width: 100%;
+	p {
+		display: inline-block;
+		&:first-child {
+			width: 15%;
+			text-align: right;
+			padding-right: 10px;
+		}
+		&:last-child {
+			width: 15%;
+			text-align: left;
+			padding-left: 10px;
+		}
+		span {
+			border: 1px solid black;
+			padding: 3px 15px;
+			border-radius: 4px;
+			color: black;
+		}
+	}
 }
 
 #output {
-  color: #ff9000;
-  font-weight: bold;
-  font-size: 30px;
-	//text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
-	margin-top: 22px;
-}
-
-#newGame {
-	height: 60px;
-	width: 180px;
-	background-color: #ff9000;
-	border: 2px solid #ff9000;
-
-	&:hover, &:active {
-		color: #ea8100;
-		background-color: #E9E8E6;
-		letter-spacing: 2px;
-		font-size: 21px;
-	}
-}
-
-#start {
-	font-size: 18px;
-	height: 45px;
-	width: 110px;
-	letter-spacing: 1.5px;
-	background-color: #228B22;
-	border: 2px solid #228B22;
-	margin-top: 20px;
-	&:hover, &:active {
-		color: #228B22;
-		background-color: #fff;
-	}
+  font-size: 25px;
+	color: #414141;
+	line-height: 35px;
 }
 
 .overlay {
@@ -149,12 +167,21 @@ button {
 
 #modal-show {
 	width: 800px;
-	.content p {
+	.content {
+		p {
 		font-weight: bold;
-		color: #265A34;
 		font-size: 20px;
-		span {
-			color: #ff9000;
+			span {
+				border: 1px solid #000;
+				padding: 3px 15px;
+				border-radius: 4px;
+			}
+		}
+		.winner {
+			color: #4CAF50;
+		}
+		.loser {
+			color: #b70101;
 		}
 	}
 }
@@ -163,5 +190,29 @@ table {
 	width: 100%;
 	thead tr th {
 		padding: 10px 0;
+	}
+}
+
+// MEDIA QUERIES
+
+@media (max-width: 768px) {
+	h1 {
+		font-size: 22px;
+	}
+	[class*="player-move"] {
+		height: 200px;
+	}
+	.new-game {
+	  padding: 8px 15px;
+	  font-size: 18px;
+	}
+}
+
+@media (max-width: 576px) {
+	[class*="player-move"] {
+		width: 25%;
+	}
+	#output {
+		font-size: 20px;
 	}
 }

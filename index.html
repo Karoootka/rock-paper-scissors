@@ -2,33 +2,27 @@
 
 <html>
 
+  <head>
+    <meta charset="utf-8">
+    <title>GAME - ROCK PAPER SCISSORS</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  </head>
+
   <body>
-
-    <head>
-      <meta charset="utf-8">
-      <title>GAME - ROCK PAPER SCISSORS</title>
-      <link rel="stylesheet" type="text/css" href="css/style.css">
-      <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    </head>
-
 
     <h1>ROCK - PAPER - SCISSORS</h1>
 
     <div>
-      <button class="ng" id="newGame">NEW GAME</button>
+      <button class="new-game" id="newGame">NEW GAME</button>
     </div>
 
     <div id="roundsInfo"></div>
-    <br>
-    <button class="btn player-move" data-move="1">ROCK</button>
-    <button class="btn player-move" data-move="2">PAPER</button>
-    <button class="btn player-move" data-move="3">SCISSORS</button>
-    <br>
-    <br>
-    <div id="output"></div>
-    <br>
-    <br>
+    <button class="btn player-move" data-move="1"></button>
+    <button class="btn player-move" data-move="2"></button>
+    <button class="btn player-move" data-move="3"></button>
     <div id="result"></div>
+    <div id="output"></div>
 
     <div class="overlay" id="modal-overlay">
     	<div class="modal" id="modal-show">
@@ -67,7 +61,7 @@
               <input type="text" name="firstname" required><br><br>
               Enter number of rounds to win:<br>
               <input type="number" name="rounds" min="1" required><br><br>
-              <button class="ng" type="submit" id="start">START</button>
+              <button class="new-game" type="submit" id="start">START</button>
             </form>
           </div>
         </div>
