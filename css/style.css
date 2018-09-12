@@ -4,11 +4,11 @@ h1 { padding: 15px; margin: 0; color: #414141; }
 
 button { cursor: pointer; }
 
-.new-game { padding: 10px 20px; margin-bottom: 30px; font-size: 24px; text-align: center; outline: none; color: #fff; background-color: #4CAF50; border: none; border-radius: 15px; box-shadow: 0 9px #999; }
+.new-game { padding: 10px 20px; margin-bottom: 30px; font-size: 24px; text-align: center; outline: none; color: #fff; background-color: #4CAF50; border: none; border-radius: 15px; transition: .5s; }
 
 .new-game:hover { background-color: #3e8e41; }
 
-.new-game:active { background-color: #3e8e41; box-shadow: 0 5px #666; transform: translateY(4px); }
+.new-game:active { transform: scale(0.9); }
 
 #start { font-size: 18px; height: 40px; width: 100px; }
 

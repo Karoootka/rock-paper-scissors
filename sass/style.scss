@@ -27,14 +27,12 @@ button {
   background-color: #4CAF50;
   border: none;
   border-radius: 15px;
-  box-shadow: 0 9px #999;
+  transition: .5s;
 	&:hover {
 		background-color: #3e8e41;
 	}
 	&:active {
-	  background-color: #3e8e41;
-	  box-shadow: 0 5px #666;
-	  transform: translateY(4px);
+	  transform: scale(0.9);
 	}
 }
 
